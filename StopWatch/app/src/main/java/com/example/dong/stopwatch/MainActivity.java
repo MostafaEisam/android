@@ -67,12 +67,19 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                    mThread.start();  //쓰레드 시작
                    threadStart = true;
                 }
+                sBtn.setEnabled(false);
+                pBtn.setEnabled(true);
                 break;
             case R.id.Pause:  //일시정지
                 mThread.watchStop();
+                pBtn.setEnabled(false);
+                sBtn.setEnabled(true);
+                rBtn.setEnabled(true);
                 break;
             case R.id.Reset:  //재시작
                 mThread.watchRestart();
+                sBtn.setEnabled(true);
+                pBtn.setEnabled(false);
                 break;
         }
     }

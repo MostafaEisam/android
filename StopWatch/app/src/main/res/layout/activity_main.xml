@@ -72,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:background="#fff9fff3"
+                android:enabled="true"
                 android:text="START" />
 
             <Button
@@ -80,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:background="#fff9fff3"
+                android:enabled="false"
                 android:text="PAUSE" />
 
             <Button
@@ -87,6 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#fff9fff3"
+                android:enabled="false"
                 android:text="RESET" />
 
         </LinearLayout>
