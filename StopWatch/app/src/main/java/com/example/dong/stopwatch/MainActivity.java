@@ -58,17 +58,20 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-         switch (v.getId()) {
+        switch (v.getId()) {
+            //무상태에서 스타트만 작동, 스타트에서 포즈 작동,
+            // 포즈에서 스타트 리스타트 작동, 리스타트시 초기 상태로
             case R.id.Start:  //시작
-               if(threadStart)
+                if (threadStart)
                     mThread.watchStart();
                 else {
                     mThread.watchStart();
-                   mThread.start();  //쓰레드 시작
-                   threadStart = true;
+                    mThread.start();  //쓰레드 시작
+                    threadStart = true;
                 }
                 sBtn.setEnabled(false);
                 pBtn.setEnabled(true);
+                rBtn.setEnabled(false);
                 break;
             case R.id.Pause:  //일시정지
                 mThread.watchStop();
@@ -80,7 +83,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 mThread.watchRestart();
                 sBtn.setEnabled(true);
                 pBtn.setEnabled(false);
+                rBtn.setEnabled(false);
                 break;
         }
     }
 }
+
+
