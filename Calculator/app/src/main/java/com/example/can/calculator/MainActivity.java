@@ -282,9 +282,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     break;
                 case R.id.Asign:  // =
                     status = 1;
+                    if(bracketCount > 0){
+                        for(int i=0; i<bracketCount; i++)
+                            CalcResult += ')';
+                    }
                     result = operation(CalcResult);
                     if (result.equals("division by zero"))
-                        Toast.makeText(this,"Error : "+result, Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "Error : " + result, Toast.LENGTH_LONG).show();
                     eTv.setText(CalcResult + "=");
                     rTv.setText(result);
                     zero = false;
@@ -312,7 +316,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     break;
                 case R.id.CE:  // 부호전까지 지운다.
                     CalcResult = clearError(CalcResult);
-                    if(CalcResult.length() < 1)
+                    if (CalcResult.length() < 1)
                         status = 1;
                     else
                         status = 3;
@@ -439,7 +443,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     break;
                 case R.id.CE:  // 부호전까지 지운다.
                     CalcResult = clearError(CalcResult);
-                    if(CalcResult.length() < 0)
+                    if (CalcResult.length() < 0)
                         status = 1;
                     else
                         status = 3;
@@ -519,7 +523,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     result = operation(CalcResult);
                     eTv.setText(CalcResult + "=");
                     if (result.equals("division by zero"))
-                        Toast.makeText(this,"Error : "+result, Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "Error : " + result, Toast.LENGTH_LONG).show();
                     rTv.setText(result);
                     CalcResult = "";
                     result = "";
@@ -544,7 +548,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     break;
                 case R.id.CE:  // 부호전까지 지운다.
                     CalcResult = clearError(CalcResult);
-                    if(CalcResult.length() < 0)
+                    if (CalcResult.length() < 0)
                         status = 1;
                     else
                         status = 3;
@@ -691,16 +695,27 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     }
                 case R.id.Asign:  // '='
                     status = 1;
-                    if (bracketCount == 0) {
+                    if (bracketCount == 0) {  //'('가 없거나 짝이 맞을 경우
                         result = operation(CalcResult);
                         if (result.equals("division by zero"))
-                            Toast.makeText(this,"Error : "+result, Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, "Error : " + result, Toast.LENGTH_LONG).show();
                         eTv.setText(CalcResult + "=");
                         rTv.setText(result);
-                    } else {
-                        rTv.setText("");
-                        Toast.makeText(this, "= Error : 수식이 바르지 않습니다.", Toast.LENGTH_LONG).show();
+                    } else {  // '('가 짝이 안맞을 경우
+                        if (numberCheck(CalcResult)) {  //'('안에 수가 있을 때 '('를 닫고 계산
+                            for (int i = 0; i < bracketCount; i++)
+                                CalcResult += ')';
+                            result = operation(CalcResult);
+                            if (result.equals("division by zero"))
+                                Toast.makeText(this, "Error : " + result, Toast.LENGTH_LONG).show();
+                            eTv.setText(CalcResult + "=");
+                            rTv.setText(result);
+                        } else {  // 없다면 오류 처리
+                            rTv.setText("");
+                            Toast.makeText(this, "= Error : 수식이 바르지 않습니다.", Toast.LENGTH_LONG).show();
+                        }
                     }
+                    zero = false;
                     bracketCheck = false;
                     bracketCount = 0;
                     CalcResult = "";
@@ -724,7 +739,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     break;
                 case R.id.CE:  // 부호전까지 값만 지운다.
                     CalcResult = clearError(CalcResult);
-                    if(CalcResult.length() < 0)
+                    if (CalcResult.length() < 0)
                         status = 1;
                     else
                         status = 3;
@@ -903,9 +918,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 result = result.substring(0, endIndex - 2);
             else if (tmp.equals("0."))  // 0.일때 '.'제거
                 result = result.substring(0, endIndex - 1);
-            if(result.contains(".")){  // x.xx0000일때 뒤 '0'제거
-                int zeroCount=0;
-                for(int i=1; i<endIndex; i++) {
+            if (result.contains(".")) {  // x.xx0000일때 뒤 '0'제거
+                int zeroCount = 0;
+                for (int i = 1; i < endIndex; i++) {
                     if (result.charAt(endIndex - i) == '0')
                         zeroCount++;
                     else
@@ -995,6 +1010,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             }
         }
         return status;
+    }
+
+    boolean numberCheck(String expression) {  //계산식에 숫자가 존재하는지 검사
+        for (int i = 0; i < expression.length(); i++) {
+            if ('0' < expression.charAt(i) && expression.charAt(i) < '9')
+                return true;  //숫자가 존재하기만하면 true
+        }
+        return false;  //하나도 없으면  false
     }
 
     String clearError(String expression) {  //CE기능
