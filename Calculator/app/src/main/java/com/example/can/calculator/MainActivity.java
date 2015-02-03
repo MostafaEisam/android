@@ -129,19 +129,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     CalcResult += 9;
                     eTv.setText(CalcResult);
                     break;
-                case R.id.Plus:  // +
-                    status = 1;
-                    break;
-                case R.id.Minus:  // -
-                    status = 1;
-                    break;
-                case R.id.Mul:  // *
-                    status = 1;
-                    break;
-                case R.id.Divide:  // /
-                    status = 1;
-                    break;
-                case R.id.Asign:  // =
+                case R.id.Plus:  // '+'
+                case R.id.Minus:  // '-'
+                case R.id.Mul:  // '*'
+                case R.id.Divide:  // '/'
+                case R.id.Asign:  // '='
+                case R.id.Backspace:  // <-  지웠을 때 이전 상태로 돌아간다.
+                case R.id.CE:  // 부호전까지 지운다.
                     status = 1;
                     break;
                 case R.id.C:  // 초기화
@@ -154,12 +148,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     alPostfix.clear();
                     eTv.setText("ExpressionText");
                     rTv.setText("ResultText");
-                    break;
-                case R.id.Backspace:  // <-  지웠을 때 이전 상태로 돌아간다.
-                    status = 1;
-                    break;
-                case R.id.CE:  // 부호전까지 지운다.
-                    status = 1;
                     break;
                 case R.id.Dot:  // 0.이 입력됨
                     status = 4;
@@ -295,6 +283,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 case R.id.Asign:  // =
                     status = 1;
                     result = operation(CalcResult);
+                    if (result.equals("division by zero"))
+                        Toast.makeText(this,"Error : "+result, Toast.LENGTH_LONG).show();
                     eTv.setText(CalcResult + "=");
                     rTv.setText(result);
                     zero = false;
@@ -321,8 +311,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     eTv.setText(CalcResult);
                     break;
                 case R.id.CE:  // 부호전까지 지운다.
-                    status = 3;
                     CalcResult = clearError(CalcResult);
+                    if(CalcResult.length() < 1)
+                        status = 1;
+                    else
+                        status = 3;
                     eTv.setText(CalcResult);
                     break;
                 case R.id.Dot:  // .이 입력된다.
@@ -427,7 +420,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     bracketCount = 0;
                     alPostfix.clear();
                     rTv.setText("");
-                    Toast.makeText(this,"=오류:수식이 바르지 않습니다.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "= Error : 수식이 바르지 않습니다.", Toast.LENGTH_LONG).show();
                     break;
                 case R.id.C:  // 초기화
                     status = 1;
@@ -445,8 +438,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     eTv.setText(CalcResult);
                     break;
                 case R.id.CE:  // 부호전까지 지운다.
-                    status = 3;
                     CalcResult = clearError(CalcResult);
+                    if(CalcResult.length() < 0)
+                        status = 1;
+                    else
+                        status = 3;
                     eTv.setText(CalcResult);
                     break;
                 case R.id.Dot:  // 0.입력된다.
@@ -456,8 +452,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     break;
                 case R.id.Bracket:  // '('만 입력된다.
                     status = 5;
-//                    if (bracketCount == 0)  // '('가 있는지 판단
-//                        bracketCheck = false;
                     bracketCount++;
                     CalcResult += "(";
                     eTv.setText(CalcResult);
@@ -524,6 +518,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     status = 1;
                     result = operation(CalcResult);
                     eTv.setText(CalcResult + "=");
+                    if (result.equals("division by zero"))
+                        Toast.makeText(this,"Error : "+result, Toast.LENGTH_LONG).show();
                     rTv.setText(result);
                     CalcResult = "";
                     result = "";
@@ -547,8 +543,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     eTv.setText(CalcResult);
                     break;
                 case R.id.CE:  // 부호전까지 지운다.
-                    status = 3;
                     CalcResult = clearError(CalcResult);
+                    if(CalcResult.length() < 0)
+                        status = 1;
+                    else
+                        status = 3;
                     eTv.setText(CalcResult);
                     break;
                 case R.id.Dot:  // 입력불가.
@@ -662,43 +661,45 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     bracketCheck = true;
                     eTv.setText(CalcResult);
                     break;
-                case R.id.Plus:  // +
+                case R.id.Plus:  // '+'
                     if (bracketCount == 0) {
                         status = 3;
                         CalcResult = signCheck(CalcResult, "+");
                         eTv.setText(CalcResult);
                         break;
                     }
-                case R.id.Minus:  // -
+                case R.id.Minus:  // '-'
                     if (bracketCount == 0) {
                         status = 3;
                         CalcResult = signCheck(CalcResult, "-");
                         eTv.setText(CalcResult);
                         break;
                     }
-                case R.id.Mul:  // *
+                case R.id.Mul:  // '*'
                     if (bracketCount == 0) {
                         status = 3;
                         CalcResult = signCheck(CalcResult, "*");
                         eTv.setText(CalcResult);
                         break;
                     }
-                case R.id.Divide:  // /
+                case R.id.Divide:  // '/'
                     if (bracketCount == 0) {
                         status = 3;
                         CalcResult = signCheck(CalcResult, "/");
                         eTv.setText(CalcResult);
                         break;
                     }
-                case R.id.Asign:  // =
+                case R.id.Asign:  // '='
                     status = 1;
                     if (bracketCount == 0) {
                         result = operation(CalcResult);
+                        if (result.equals("division by zero"))
+                            Toast.makeText(this,"Error : "+result, Toast.LENGTH_LONG).show();
                         eTv.setText(CalcResult + "=");
                         rTv.setText(result);
                     } else {
                         rTv.setText("");
-                        Toast.makeText(this,"=오류:수식이 바르지 않습니다.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "= Error : 수식이 바르지 않습니다.", Toast.LENGTH_LONG).show();
                     }
                     bracketCheck = false;
                     bracketCount = 0;
@@ -722,8 +723,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     eTv.setText(CalcResult);
                     break;
                 case R.id.CE:  // 부호전까지 값만 지운다.
-                    status = 3;
                     CalcResult = clearError(CalcResult);
+                    if(CalcResult.length() < 0)
+                        status = 1;
+                    else
+                        status = 3;
                     eTv.setText(CalcResult);
                     break;
                 case R.id.Dot:  //0.입력된다..
@@ -856,6 +860,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         Stack<String> s = new Stack<>();  //피연산자 스택
         String operation;
         String result;
+        BigDecimal divByzero = new BigDecimal("0");
 
         for (int i = 0; i < alPostfix.size(); i++) {
             operation = alPostfix.get(i);
@@ -876,6 +881,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                         s.push(op1.toString());
                         break;
                     case "/":
+                        if (op2.compareTo(divByzero) == 0)
+                            return result = "division by zero";
                         op1 = op1.divide(op2);
                         s.push(op1.toString());
                         break;
@@ -892,10 +899,20 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         if (endIndex > 1) {
             tmp = result.substring(endIndex - 2, endIndex);
-            if (tmp.equals(".0"))
+            if (tmp.equals(".0"))  // 3.0일때 '.0'제거
                 result = result.substring(0, endIndex - 2);
-            else if (tmp.equals("0."))
+            else if (tmp.equals("0."))  // 0.일때 '.'제거
                 result = result.substring(0, endIndex - 1);
+            if(result.contains(".")){  // x.xx0000일때 뒤 '0'제거
+                int zeroCount=0;
+                for(int i=1; i<endIndex; i++) {
+                    if (result.charAt(endIndex - i) == '0')
+                        zeroCount++;
+                    else
+                        break;
+                }
+                result = result.substring(0, endIndex - zeroCount);
+            }
         }
         return result;
     }
