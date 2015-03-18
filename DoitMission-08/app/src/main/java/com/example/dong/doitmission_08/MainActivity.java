@@ -91,6 +91,9 @@ public class MainActivity extends ActionBarActivity {
                 day = curItem.getDay();
                 String key = curYear + "-" + curMonth + "-" + day;  //해쉬 Key
 
+                //어댑터랑 연결할 리스트뷰 참조
+                listView = (ListView) findViewById(R.id.listview);
+
                 if (curItem.getisPlan()) {
                     //setAdapter하면 된다... 해쉬테이블의 리스트랑
                     listAdapter = new listItemAdapter();
@@ -101,10 +104,11 @@ public class MainActivity extends ActionBarActivity {
                         listAdapter.add(al.get(i));
                     }
 
-                    //어댑터랑 연결할 리스트뷰 참조
-                    listView = (ListView) findViewById(R.id.listview);
-
                     listView.setAdapter(listAdapter);  //연결
+                }
+                else{
+                    listAdapter = null;
+                    listView.setAdapter(listAdapter);
                 }
 
                 Log.d("CalendarMonthViewActivity", "Selected : " + day);

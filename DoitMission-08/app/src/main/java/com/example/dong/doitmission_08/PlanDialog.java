@@ -42,7 +42,7 @@ public class PlanDialog extends Dialog {
 
                 if (0 >= Integer.parseInt(hour) || Integer.parseInt(hour) >= 24)
                     Toast.makeText(getContext(), "hour error", Toast.LENGTH_SHORT).show();
-                else if (0 >= Integer.parseInt(minute) || Integer.parseInt(minute) >= 60)
+                else if (0 > Integer.parseInt(minute) || Integer.parseInt(minute) >= 60)
                     Toast.makeText(getContext(), "minute error", Toast.LENGTH_SHORT).show();
                 else
                     dismiss();  //이후 MainActivity에서 구현해준 Dissmiss 리스너가 작동함
