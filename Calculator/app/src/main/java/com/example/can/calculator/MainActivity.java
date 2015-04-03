@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
+    //리펙토링할것, 0으로 나누는처리 예외처리 이용,
     String CalcResult = "";
     String result = "";
     TextView eTv, rTv;
