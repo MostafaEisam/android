@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\개발\GitHub\android\ImageLoader\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.1.1\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a3ff3c506644c820eb2bdf06e8339f72be578551">
+        <dex dex="D:\개발\GitHub\android\ImageLoader\app\build\intermediates\pre-dexed\debug\classes-12908647e1a20ba6363ddc4db1130b6727b031c3.jar" />
+    </item>
+    <item
+        jar="D:\개발\GitHub\android\ImageLoader\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.1\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c95ba8152923e4872e86a82cfcba9a51c0214328">
+        <dex dex="D:\개발\GitHub\android\ImageLoader\app\build\intermediates\pre-dexed\debug\classes-6e9ded263a4c87f6b407deb5105039c2c6b20a1f.jar" />
+    </item>
+    <item
+        jar="C:\Users\Dong\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.1.1\support-annotations-22.1.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01d051a6bfb1218b1db2d3a5af0480ac2c25c42a">
+        <dex dex="D:\개발\GitHub\android\ImageLoader\app\build\intermediates\pre-dexed\debug\support-annotations-22.1.1-ccdef1073b51327314d1626375812f44de309e99.jar" />
+    </item>
+    <item
+        jar="D:\개발\GitHub\android\ImageLoader\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.1\libs\internal_impl-22.1.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="9e070ad32b2700b0343e8e0cccc437733d91ba3a">
+        <dex dex="D:\개발\GitHub\android\ImageLoader\app\build\intermediates\pre-dexed\debug\internal_impl-22.1.1-3daeba8e9ad1d38d676506b0b5d55c9dc4624b87.jar" />
+    </item>
+    <item
+        jar="D:\개발\GitHub\android\ImageLoader\app\libs\universal-image-loader-1.9.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a85588bec3e2c4584d593d3f15df1677321bca72">
+        <dex dex="D:\개발\GitHub\android\ImageLoader\app\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.3-e106cacaee625b9ba12d59afa9683686c567c791.jar" />
+    </item>
+
+</items>

@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
 //
 //                    tV.setText(JSONdatal);
 
-
                     Intent intent = new Intent(getApplicationContext(),ImageLsitActivity.class);
                     intent.putExtra("list",photoList);
 
