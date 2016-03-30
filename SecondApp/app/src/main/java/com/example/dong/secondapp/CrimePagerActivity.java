@@ -64,6 +64,7 @@ public class CrimePagerActivity extends AppCompatActivity implements CrimeFragme
         //액션바에 나타나는 액티비티의 제목을 현재 Crime의 제목으로 바꾼다.
         //ViewPager가 보여주는 현재 페이지의 변경사항들을 리스닝하는 방법이 OnPageChangeListener다.
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
             //페이지가 이동되는 위치를 알려줌
             @Override
             public void onPageScrolled(int pos, float posOffset, int posOffsetPixels) {
