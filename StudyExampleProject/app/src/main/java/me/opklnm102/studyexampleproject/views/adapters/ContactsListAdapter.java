@@ -13,7 +13,7 @@ import me.opklnm102.studyexampleproject.views.viewholders.ContactsFooterItemView
 import me.opklnm102.studyexampleproject.views.viewholders.ContactsHeaderItemViewHolder;
 import me.opklnm102.studyexampleproject.views.viewholders.ContactsListItemViewholder;
 import me.opklnm102.studyexampleproject.R;
-import me.opklnm102.studyexampleproject.models.Contact;
+import me.opklnm102.studyexampleproject.models.ContactItem;
 
 /**
  * Created by Administrator on 2016-04-02.
@@ -21,7 +21,7 @@ import me.opklnm102.studyexampleproject.models.Contact;
 public class ContactsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final Context mContext;
-    private final List<Object> mContactList;
+    private final List<ContactItem> mContactList;
 
     public static final int HEADER = 1;
     public static final int FOOTER = 2;
@@ -37,39 +37,30 @@ public class ContactsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 //        this.listener = listener;
 //    }
 
-    private OnItemAddListener mOnItemAddListener = new OnItemAddListener() {
-        @Override
-        public void onItemAdd(Contact contact) {
-            mContactList.add(mContactList.size() - 1, contact);
+    private OnItemAddListener mOnItemAddListener;
 
-        }
-    };
-
-//    public void setOnItemAddListener(OnItemAddListener listener){
-//        mOnItemAddListener = listener;
-//    }
+    public void setOnItemAddListener(OnItemAddListener listener){
+        mOnItemAddListener = listener;
+    }
 
     public interface  OnItemAddListener{
-        void onItemAdd(Contact contact);
+        void onItemAdd(ContactItem contactItem);
     }
 
     public void initData() {
         for (int i = 0; i < 20; i++) {
-            Contact contact = new Contact(R.mipmap.ic_launcher, "김" + i, "010 " + i);
-            addItem(contact, i);
+            ContactItem contactItem = new ContactItem(R.mipmap.ic_launcher, "김" + i, "010 " + i);
+            addItem(contactItem, i);
         }
-
-        addHeader();
-        addFooter();
     }
 
     public void addHeader(){
-        mContactList.add(0, "header");
+//        mContactList.add(0, "header");
         notifyItemInserted(0);
     }
 
     public void addFooter(){
-        mContactList.add(mContactList.size(), "footer");
+//        mContactList.add(mContactList.size(), "footer");
         notifyItemInserted(mContactList.size());
     }
 
@@ -83,9 +74,9 @@ public class ContactsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public int getItemViewType(int position) {
 
-        if (position == 0 && mContactList.get(position) instanceof String && "header".equals(((String)mContactList.get(position)))) {
+        if (position == 0) {
             return HEADER;
-        } else if (position == mContactList.size() - 1 && mContactList.get(position) instanceof String && "footer".equals(((String)mContactList.get(position)))) {
+        } else if (position == mContactList.size() + 1) {
             return FOOTER;
         }
         return super.getItemViewType(position);
@@ -124,19 +115,19 @@ public class ContactsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 ((ContactsFooterItemViewHolder)holder).bind("마지막");
                 break;
             default:
-                Contact contact = (Contact)mContactList.get(position);
-                ((ContactsListItemViewholder)holder).bind(contact);
+                ContactItem contactItem = mContactList.get(position - 1);
+                ((ContactsListItemViewholder)holder).bind(contactItem);
                 break;
         }
     }
 
     @Override
     public int getItemCount() {
-        return mContactList.size();
+        return mContactList.size() + 2;
     }
 
-    public void addItem(Contact contact, int position) {
-        mContactList.add(position, contact);
+    public void addItem(ContactItem contactItem, int position) {
+        mContactList.add(position, contactItem);
         notifyItemInserted(position);
     }
 

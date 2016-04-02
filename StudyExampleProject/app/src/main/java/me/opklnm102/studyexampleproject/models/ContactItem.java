@@ -3,19 +3,19 @@ package me.opklnm102.studyexampleproject.models;
 /**
  * Created by Administrator on 2016-04-02.
  */
-public class Contact {
+public class ContactItem {
 
     Integer profileImg;
     String name;
     String phoneNumber;
 
-    public Contact() {
+    public ContactItem() {
         this.profileImg = null;
         this.name = null;
         this.phoneNumber = null;
     }
 
-    public Contact(Integer profileImg, String name, String phoneNumber) {
+    public ContactItem(Integer profileImg, String name, String phoneNumber) {
         this.profileImg = profileImg;
         this.name = name;
         this.phoneNumber = phoneNumber;

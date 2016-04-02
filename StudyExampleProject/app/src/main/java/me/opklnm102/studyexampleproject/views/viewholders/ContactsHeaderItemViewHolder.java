@@ -5,11 +5,12 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 
 import me.opklnm102.studyexampleproject.R;
-import me.opklnm102.studyexampleproject.models.Contact;
+import me.opklnm102.studyexampleproject.models.ContactItem;
 import me.opklnm102.studyexampleproject.views.adapters.ContactsListAdapter;
 
 /**
@@ -51,12 +52,20 @@ public class ContactsHeaderItemViewHolder extends RecyclerView.ViewHolder {
                 String strPhoneNumber = etPhoneNumber.getText().toString();
 
                 if(!"".equals(strName) && !"".equals(strPhoneNumber)){
-                    Contact contact = new Contact();
-                    contact.setName(strName);
-                    contact.setName(strPhoneNumber);
+                    ContactItem contactItem = new ContactItem();
+                    contactItem.setProfileImg(R.mipmap.ic_launcher);
+                    contactItem.setName(strName);
+                    contactItem.setPhoneNumber(strPhoneNumber);
+
+                    etName.setText("");
+                    etPhoneNumber.setText("");
+
+                    //soft keyboard hide
+                    InputMethodManager imm = (InputMethodManager)mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(etName.getWindowToken(), 0);
 
                     if(listener != null){
-                        listener.onItemAdd(contact);
+                        listener.onItemAdd(contactItem);
                     }
                 } else {
                     Toast.makeText(mContext, "빈칸을 채워주세요" , Toast.LENGTH_SHORT).show();
@@ -65,11 +74,7 @@ public class ContactsHeaderItemViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    public void bind(Contact contact) {
+    public void bind(ContactItem contactItem) {
 
     }
-
-
-
-
 }

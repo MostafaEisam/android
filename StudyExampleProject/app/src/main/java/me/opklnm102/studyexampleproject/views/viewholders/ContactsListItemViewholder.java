@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import me.opklnm102.studyexampleproject.R;
-import me.opklnm102.studyexampleproject.models.Contact;
+import me.opklnm102.studyexampleproject.models.ContactItem;
 
 /**
  * Created by Administrator on 2016-04-02.
@@ -35,10 +35,10 @@ public class ContactsListItemViewholder extends RecyclerView.ViewHolder implemen
         mView.setOnClickListener(this);
     }
 
-    public void bind(Contact contact) {
-        ivProfile.setImageResource(contact.getProfileImg());
-        tvName.setText(contact.getName());
-        tvPhoneNumber.setText(contact.getPhoneNumber());
+    public void bind(ContactItem contactItem) {
+        ivProfile.setImageResource(contactItem.getProfileImg());
+        tvName.setText(contactItem.getName());
+        tvPhoneNumber.setText(contactItem.getPhoneNumber());
     }
 
     @Override

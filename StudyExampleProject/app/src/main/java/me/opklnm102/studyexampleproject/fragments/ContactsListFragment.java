@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import me.opklnm102.studyexampleproject.models.ContactItem;
 import me.opklnm102.studyexampleproject.utils.DividerItemDecoration;
 import me.opklnm102.studyexampleproject.R;
 import me.opklnm102.studyexampleproject.views.adapters.ContactsListAdapter;
@@ -21,6 +22,7 @@ public class ContactsListFragment extends Fragment {
     private int page;
 
     RecyclerView rvContacts;
+    ContactsListAdapter mContactsListAdapter;
 
     public ContactsListFragment() {
         // Required empty public constructor
@@ -54,17 +56,27 @@ public class ContactsListFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rvContacts = (RecyclerView)view.findViewById(R.id.recyclerView_contacts);
+        rvContacts = (RecyclerView) view.findViewById(R.id.recyclerView_contacts);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvContacts.setLayoutManager(linearLayoutManager);
         rvContacts.setHasFixedSize(true);
         rvContacts.scrollToPosition(0);
-        rvContacts.setAdapter(new ContactsListAdapter(getActivity()));
+
+        mContactsListAdapter = new ContactsListAdapter(getActivity());
+        mContactsListAdapter.setOnItemAddListener(new ContactsListAdapter.OnItemAddListener() {
+            @Override
+            public void onItemAdd(ContactItem contactItem) {
+                mContactsListAdapter.addItem(contactItem, mContactsListAdapter.getItemCount() - 2);
+                rvContacts.scrollToPosition(mContactsListAdapter.getItemCount() - 1);  //go to bottom, 안가진다....
+            }
+        });
+
+
+        rvContacts.setAdapter(mContactsListAdapter);
 
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST);
         rvContacts.addItemDecoration(itemDecoration);
-
 
 
     }
