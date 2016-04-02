@@ -9,19 +9,28 @@ import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2016-04-01.
  */
 public class MainPagerAdapter extends FragmentPagerAdapter {
 
-    final int PAGE_COUNT = 3;
-    private String tabTitles[] = new String[]{"Tab1", "Tab2", "Tab3"};
-    private int[] imageResId = {
-            R.mipmap.ic_launcher,
-            R.mipmap.ic_launcher,
-            R.mipmap.ic_launcher
-    };
+    public static final String TAG = MainPagerAdapter.class.getSimpleName();
+
+    private final ArrayList<Fragment> mFragmentList = new ArrayList<>();
+    private final ArrayList<String> mTitleList = new ArrayList<>();
+    private final ArrayList<Integer> mIconList = new ArrayList<>();
+
+//    private String tabTitles[] = new String[]{"Tab1", "Tab2", "Tab3"};
+
+//    private int[] imageResId = {
+//            R.mipmap.ic_launcher,
+//            R.mipmap.ic_launcher,
+//            R.mipmap.ic_launcher
+//    };
 
     Context mContext;
 
@@ -30,13 +39,16 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         mContext = context;
     }
 
+    //아이콘이 안뜨네
     @Override
     public CharSequence getPageTitle(int position) {
 //        return tabTitles[position];
 
-        Drawable titleIcon = ContextCompat.getDrawable(mContext, imageResId[position]);
-        titleIcon.setBounds(0, 0, titleIcon.getIntrinsicWidth(), titleIcon.getIntrinsicHeight());
-        SpannableString spannableString = new SpannableString(" " + tabTitles[position]);
+        Log.d(TAG, " getPageTitle()");
+
+        Drawable titleIcon = ContextCompat.getDrawable(mContext, mIconList.get(position));
+        titleIcon.setBounds(0, 0, titleIcon.getMinimumWidth(), titleIcon.getMinimumHeight());
+        SpannableString spannableString = new SpannableString(" " + mTitleList.get(position));
         ImageSpan imageSpan = new ImageSpan(titleIcon, ImageSpan.ALIGN_BOTTOM);
         spannableString.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
@@ -44,11 +56,17 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return ContactsListFragment.newInstance(tabTitles[position], position);
+        return mFragmentList.get(position);
     }
 
     @Override
     public int getCount() {
-        return PAGE_COUNT;
+        return mFragmentList.size();
+    }
+
+    public void addFragment(Fragment fragment, String title, int resId) {
+        mFragmentList.add(fragment);
+        mTitleList.add(title);
+        mIconList.add(resId);
     }
 }

@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String POSITION = "POSITION";
 
+    Toolbar mToolbar;
+    FloatingActionButton mfab;
     ViewPager mViewPager;
     TabLayout mTabLayout;
 
@@ -23,11 +25,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        initView();
+
+        setSupportActionBar(mToolbar);
+
+        mfab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -35,14 +38,43 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mViewPager = (ViewPager)findViewById(R.id.viewPager);
-        MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), MainActivity.this);
-        mViewPager.setAdapter(mainPagerAdapter);
-
-        mTabLayout = (TabLayout)findViewById(R.id.tabLayout);
+        setupViewPager();
         mTabLayout.setupWithViewPager(mViewPager);
+        setupTabIcons();
     }
 
+    public void initView(){
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mfab = (FloatingActionButton) findViewById(R.id.fab);
+        mViewPager = (ViewPager)findViewById(R.id.viewPager);
+        mTabLayout = (TabLayout)findViewById(R.id.tabLayout);
+    }
+
+    public void setupViewPager(){
+        MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), MainActivity.this);
+        mainPagerAdapter.addFragment(ContactsListFragment.newInstance("tab1", 0), "tab1", R.mipmap.ic_launcher);
+        mainPagerAdapter.addFragment(ContactsListFragment.newInstance("tab2", 1), "tab2", R.mipmap.ic_launcher);
+        mainPagerAdapter.addFragment(ContactsListFragment.newInstance("tab3", 2), "tab3", R.mipmap.ic_launcher);
+        mainPagerAdapter.addFragment(ContactsListFragment.newInstance("tab1", 0), "tab1", R.mipmap.ic_launcher);
+        mainPagerAdapter.addFragment(ContactsListFragment.newInstance("tab2", 1), "tab2", R.mipmap.ic_launcher);
+        mainPagerAdapter.addFragment(ContactsListFragment.newInstance("tab3", 2), "tab3", R.mipmap.ic_launcher);
+        mainPagerAdapter.addFragment(ContactsListFragment.newInstance("tab1", 0), "tab1", R.mipmap.ic_launcher);
+        mainPagerAdapter.addFragment(ContactsListFragment.newInstance("tab2", 1), "tab2", R.mipmap.ic_launcher);
+        mainPagerAdapter.addFragment(ContactsListFragment.newInstance("tab3", 2), "tab3", R.mipmap.ic_launcher);
+        mViewPager.setAdapter(mainPagerAdapter);
+    }
+
+    private int[] imageResId = {
+            R.mipmap.ic_launcher,
+            R.mipmap.ic_launcher,
+            R.mipmap.ic_launcher
+    };
+
+    public void setupTabIcons(){
+        mTabLayout.getTabAt(0).setIcon(imageResId[0]);
+        mTabLayout.getTabAt(1).setIcon(imageResId[1]);
+        mTabLayout.getTabAt(2).setIcon(imageResId[2]);
+    }
 
     //이전에 선택되어 있던 탭 위치 복구
     @Override

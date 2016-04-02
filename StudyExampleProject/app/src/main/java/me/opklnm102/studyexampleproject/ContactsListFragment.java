@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,8 @@ public class ContactsListFragment extends Fragment {
 
     private String title;
     private int page;
+
+    RecyclerView rvContacts;
 
     public ContactsListFragment() {
         // Required empty public constructor
@@ -49,6 +53,16 @@ public class ContactsListFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        rvContacts = (RecyclerView)view.findViewById(R.id.recyclerView_contacts);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        rvContacts.setLayoutManager(linearLayoutManager);
+        rvContacts.setHasFixedSize(true);
+        rvContacts.scrollToPosition(0);
+        rvContacts.setAdapter(new ContactsListAdapter(getActivity()));
+
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST);
+        rvContacts.addItemDecoration(itemDecoration);
 
 
 
