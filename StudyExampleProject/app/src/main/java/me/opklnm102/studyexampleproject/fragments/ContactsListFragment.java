@@ -1,7 +1,5 @@
-package me.opklnm102.studyexampleproject;
+package me.opklnm102.studyexampleproject.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,7 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import me.opklnm102.studyexampleproject.utils.DividerItemDecoration;
+import me.opklnm102.studyexampleproject.R;
+import me.opklnm102.studyexampleproject.views.adapters.ContactsListAdapter;
 
 public class ContactsListFragment extends Fragment {
 

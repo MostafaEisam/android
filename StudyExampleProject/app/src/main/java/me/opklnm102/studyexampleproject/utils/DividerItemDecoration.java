@@ -1,4 +1,4 @@
-package me.opklnm102.studyexampleproject;
+package me.opklnm102.studyexampleproject.utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;

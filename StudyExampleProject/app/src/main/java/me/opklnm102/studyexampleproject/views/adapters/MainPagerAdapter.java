@@ -1,4 +1,4 @@
-package me.opklnm102.studyexampleproject;
+package me.opklnm102.studyexampleproject.views.adapters;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

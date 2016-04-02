@@ -1,4 +1,4 @@
-package me.opklnm102.studyexampleproject;
+package me.opklnm102.studyexampleproject.views.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,12 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import me.opklnm102.studyexampleproject.views.viewholders.ContactsFooterItemViewHolder;
+import me.opklnm102.studyexampleproject.views.viewholders.ContactsHeaderItemViewHolder;
+import me.opklnm102.studyexampleproject.views.viewholders.ContactsListItemViewholder;
+import me.opklnm102.studyexampleproject.R;
+import me.opklnm102.studyexampleproject.models.Contact;
 
 /**
  * Created by Administrator on 2016-04-02.

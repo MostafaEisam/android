@@ -1,8 +1,10 @@
-package me.opklnm102.studyexampleproject;
+package me.opklnm102.studyexampleproject.views.viewholders;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+
+import me.opklnm102.studyexampleproject.R;
 
 /**
  * Created by Administrator on 2016-04-02.

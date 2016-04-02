@@ -1,4 +1,4 @@
-package me.opklnm102.studyexampleproject;
+package me.opklnm102.studyexampleproject.models;
 
 /**
  * Created by Administrator on 2016-04-02.
