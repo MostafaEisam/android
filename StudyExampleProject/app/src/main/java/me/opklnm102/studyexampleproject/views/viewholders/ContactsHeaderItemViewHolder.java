@@ -4,6 +4,9 @@ import android.content.Context;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -44,6 +47,8 @@ public class ContactsHeaderItemViewHolder extends RecyclerView.ViewHolder {
         etPhoneNumber = (TextInputEditText) itemView.findViewById(R.id.editText_phone_number);
         btnAdd = (Button) itemView.findViewById(R.id.button_contacts_add);
 
+        setupFloatingLabelError();
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +80,28 @@ public class ContactsHeaderItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(ContactItem contactItem) {
+    }
 
+    private void setupFloatingLabelError(){
+        tlPhoneNumber.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() <= 8){
+//                    tlPhoneNumber.setErrorEnabled(true);
+                    tlPhoneNumber.setError("너무 짧다.");
+                }else{
+                    tlPhoneNumber.setError(null);
+//                    tlPhoneNumber.setErrorEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 }

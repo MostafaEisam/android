@@ -27,6 +27,7 @@ public class DetailInfoActivity extends AppCompatActivity {
     String strPhoneNumber;
     Integer profileImg;
 
+    Intent receiveIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +39,20 @@ public class DetailInfoActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Intent receiveIntent = getIntent();
+        receiveIntent = getIntent();
 
+        strName = receiveIntent.getStringExtra("name");
+        strPhoneNumber = receiveIntent.getStringExtra("phoneNumber");
+        profileImg = receiveIntent.getIntExtra("profileImg", 0);
 
-//        ivProfile
-//                tvName
-//        tvPhoneNumber
+        //프로필 이미지가 없을 경우 default 이미지를 출력
+        if(profileImg != 0){
+            ivProfile.setImageResource(profileImg);
+        }else{
+            ivProfile.setImageResource(R.mipmap.ic_launcher);
+        }
+        tvName.setText(strName);
+        tvPhoneNumber.setText(strPhoneNumber);
 
         btnPhoneCall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,9 +71,18 @@ public class DetailInfoActivity extends AppCompatActivity {
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setResult(RESULT_OK, receiveIntent);
                 finish();
             }
         });
+    }
+
+    //Hw Back button 누를 시 취소 처리
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        setResult(RESULT_CANCELED);
+        finish();
     }
 
     private void initView() {
@@ -76,6 +94,4 @@ public class DetailInfoActivity extends AppCompatActivity {
         btnMessage = (Button) findViewById(R.id.button_message);
         btnFinish = (Button) findViewById(R.id.button_finish);
     }
-
-
 }

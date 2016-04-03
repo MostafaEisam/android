@@ -29,5 +29,8 @@ dependencies {
     compile "com.android.support:design:$supportVersion"
     compile "com.android.support:recyclerview-v7:$supportVersion"
     compile "com.android.support:cardview-v7:$supportVersion"
-    compile 'com.android.support:support-v4:23.2.1'
+    compile "com.android.support:support-v4:$supportVersion"
+
+    //recyclerView animator
+    compile 'jp.wasabeef:recyclerview-animators:2.2.1'
 }

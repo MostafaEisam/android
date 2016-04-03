@@ -39,14 +39,20 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         mContext = context;
     }
 
-    //아이콘이 안뜨네
+
     @Override
     public CharSequence getPageTitle(int position) {
+
+        //글자만 보여줄 때
 //        return tabTitles[position];
+
+        //아이콘만 보여주고 싶을 때
+//        return null;
 
         Log.d(TAG, " getPageTitle()");
 
-        Drawable titleIcon = ContextCompat.getDrawable(mContext, mIconList.get(position));
+        //아이콘과 글자 동시에 -> 아이콘이 안뜨네.. 그냥 tabLayout에 설정해서 해결결
+       Drawable titleIcon = ContextCompat.getDrawable(mContext, mIconList.get(position));
         titleIcon.setBounds(0, 0, titleIcon.getMinimumWidth(), titleIcon.getMinimumHeight());
         SpannableString spannableString = new SpannableString(" " + mTitleList.get(position));
         ImageSpan imageSpan = new ImageSpan(titleIcon, ImageSpan.ALIGN_BOTTOM);
