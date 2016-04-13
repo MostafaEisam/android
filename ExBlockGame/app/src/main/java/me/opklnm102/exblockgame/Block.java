@@ -3,16 +3,21 @@ package me.opklnm102.exblockgame;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Bundle;
 
 /**
  * Created by Administrator on 2016-04-12.
  */
 public class Block implements DrawableItem{
+
+    public static final String KEY_HARD = "hard";
+
     private final float mTop;
     private final float mLeft;
     private final float mBottom;
     private final float mRight;
     private int mHard;  //내구성
+
 
     public Block(float top, float left, float bottom, float right) {
         mHard = 1;
@@ -59,6 +64,25 @@ public class Block implements DrawableItem{
     //블록이 존재하는가?
     public boolean isExist(){
         return mIsExist;
+    }
+
+    /**
+     * Bundle에 상태를 저장
+     * @return 저장해야할 상태가 저장된 Bundle
+     */
+    public Bundle save(){
+        Bundle outState = new Bundle();
+        outState.putInt(KEY_HARD, mHard);
+        return outState;
+    }
+
+    /**
+     * Bundle로부터 상태를 복원
+     * @param inState 복원할 상태가 저장된 Bundle
+     */
+    public void restore(Bundle inState){
+        mHard = inState.getInt(KEY_HARD);
+        mIsExist = mHard > 0;
     }
 
 

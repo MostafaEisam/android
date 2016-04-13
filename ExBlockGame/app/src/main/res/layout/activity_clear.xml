@@ -43,6 +43,34 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textClearTime"
         android:layout_centerHorizontal="true"
-        android:text="@string/game_start"/>
+        android:text="game_start"/>
+
+
+    <TextView
+        android:id="@+id/textScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonGameStart"
+        android:layout_centerHorizontal="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+
+    <TextView
+        android:id="@+id/textHighScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textScore"
+        android:layout_centerHorizontal="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <Button
+        android:id="@+id/buttonShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textHighScore"
+        android:layout_centerHorizontal="true"
+        android:text="@string/share"/>
 
 </RelativeLayout>

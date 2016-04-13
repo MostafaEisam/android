@@ -1,0 +1,13 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="enable_sound"
+        android:title="@string/pref_sound"/>
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="enable_vibrate"
+        android:title="@string/pref_vibrate"/>
+
+</PreferenceScreen>
