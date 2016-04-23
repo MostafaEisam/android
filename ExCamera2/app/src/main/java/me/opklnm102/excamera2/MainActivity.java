@@ -2,6 +2,7 @@ package me.opklnm102.excamera2;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(mTextureView);
 
         // 1단계 적업업에 따라 CaeraManager객체를 생성
-        manager = (CameraManager) getSystemService(CAMERA_SERVICE);
+        manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
 
         // 6단계 작업으로 사용자가 카메라 미리보기 화면을 터치하면 사진 이미지를 캡처
         mTextureView.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +118,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
-
+            Log.d(TAG, " onSurfaceTextureSizeChanged");
+//            configureTransform(width, height);
         }
 
         @Override
@@ -196,49 +198,49 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(null != mCameraDevice){
+        if (null != mCameraDevice) {
             mCameraDevice.close();
             mCameraDevice = null;
         }
     }
-    
-    protected void startPreview(){
+
+    protected void startPreview() {
         //미리보기를 시작하기 앞서 Camera Device객체가 정상적으로 생성되었는지
         //동시에 화면은 정상적으로 열려져 있는지 점검
-        if(null == mCameraDevice || !mTextureView.isAvailable() || null == mPreviewSize){
+        if (null == mCameraDevice || !mTextureView.isAvailable() || null == mPreviewSize) {
             Log.d(TAG, "startPreview fail, return");
             return;
         }
-        
+
         //SurfaceTexture객체를 사용하여 Surface객체를 생성
         SurfaceTexture texture = mTextureView.getSurfaceTexture();
-        
-        if(null == texture){
+
+        if (null == texture) {
             Log.d(TAG, "texture is null, return");
             return;
         }
-        
+
         //TextureView로부터 Surface객체를 생성
         Surface surface = new Surface(texture);
-        
-        try{
+
+        try {
             // 3단계 작업으로 미리보기용 템플릿을 사용하여 CaptureRequest객체를 생성
             mPreviewBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
-        }catch (CameraAccessException e){
+        } catch (CameraAccessException e) {
             e.printStackTrace();
         }
-        
+
         // CaptureRequest객체가 사용하는 미리보기용 Surface객체를 등록
         mPreviewBuilder.addTarget(surface);
-        
-        try{
+
+        try {
             // 4단계 작업으로 CameraCaptureSession객체를 생성
             // 미리보기용이므로 Texture객체가 생성한 하나의 Surface객체만 사용
             mCameraDevice.createCaptureSession(Arrays.asList(surface), new CameraCaptureSession.StateCallback() {
                 @Override
                 public void onConfigured(CameraCaptureSession session) {
                     mPreviewSession = session;
-                    
+
                     //미리보기의 시작을 위해 CaptureRequest객체를 카메라 시스템에 전송
                     updatePreview();
                 }
@@ -249,14 +251,14 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "onConfigureFailed", Toast.LENGTH_SHORT).show();
                 }
             }, null);
-        }catch (CameraAccessException e){
+        } catch (CameraAccessException e) {
             e.printStackTrace();
         }
     }
 
     // 5단계 작업으로 CaptureRequest객체를 카메라 시스템에 전달
-    protected void updatePreview(){
-        if(null == mCameraDevice){
+    protected void updatePreview() {
+        if (null == mCameraDevice) {
             Log.d(TAG, " updatePreview error, return");
         }
 
@@ -268,33 +270,33 @@ public class MainActivity extends AppCompatActivity {
         Handler와 Thread를 동시에 사용할 수 있다.
          */
         HandlerThread handlerThread = new HandlerThread("CameraPreview");
-        handlerThread.start();
+        handlerThread.start();  //스레드를 실행
         Handler backgroundHandler = new Handler(handlerThread.getLooper());
 
-        try{
+        try {
             mPreviewSession.setRepeatingRequest(mPreviewBuilder.build(), null, backgroundHandler);
-        }catch (CameraAccessException e){
+        } catch (CameraAccessException e) {
             e.printStackTrace();
         }
     }
 
     // 6단계 작업으로 사용자가 화면을 터치하면 사진 이미지를 캡처
-    protected void takePicture(){
+    protected void takePicture() {
         //미리보기와 달리 사진 이미지 캡처는 별도 세션을 생성하여 작업
         //따라서 2단계 작업을 다시 수행
         //작업을 수행하기 전에 이전 단계에서 Camera Device객체가 정상적으로 만들어졌는지 확인해야 한다.
-        if(null == mCameraDevice){
+        if (null == mCameraDevice) {
             Log.d(TAG, " mCameraDevice is null, return");
             return;
         }
 
-        try{
+        try {
             //카메라 시스템에서 캡처할 수 있는 사진 이미지 해상도를 얻는다.
             Size[] jpegSizes = null;
 
             // map변수는 StreamConfigurationMap객체를 가리키는 참조 변수
             // 이미 Camera Device객체로부터 반환받았다.
-            if(map != null){
+            if (map != null) {
                 jpegSizes = map.getOutputSizes(ImageFormat.JPEG);
             }
             int width = 640;
@@ -302,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
 
             //미리보기 화면과 JPEG 이미지는 서로 다른 해상도를 가질 수 있다.
             //시스템에서 제공할 수 있는 최대 해상도로 이미지를 잡는다.
-            if(jpegSizes != null && 0 < jpegSizes.length){
+            if (jpegSizes != null && 0 < jpegSizes.length) {
                 width = jpegSizes[0].getWidth();
                 height = jpegSizes[0].getHeight();
             }
@@ -345,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onImageAvailable(ImageReader reader) {
                     Image image = null;
-                    try{
+                    try {
                         //마지막 캡처한 이미지를 선택
                         image = reader.acquireLatestImage();
 
@@ -354,12 +356,12 @@ public class MainActivity extends AppCompatActivity {
                         byte[] bytes = new byte[buffer.capacity()];
                         buffer.get(bytes);
                         save(bytes);
-                    }catch (FileNotFoundException e){
+                    } catch (FileNotFoundException e) {
                         e.printStackTrace();
-                    }catch (IOException e){
+                    } catch (IOException e) {
                         e.printStackTrace();
-                    }finally {
-                        if(image != null){
+                    } finally {
+                        if (image != null) {
                             //각각의 Image객체와 ImageReader 객체를 닫는다.
                             image.close();
                             reader.close();
@@ -367,14 +369,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                private void save(byte[] bytes) throws IOException{
+                private void save(byte[] bytes) throws IOException {
                     OutputStream output = null;
 
-                    try{
+                    try {
                         output = new FileOutputStream(file);
                         output.write(bytes);
-                    }finally {
-                        if(null != output){
+                    } finally {
+                        if (null != output) {
                             output.close();
                         }
                     }
@@ -410,10 +412,10 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onConfigured(CameraCaptureSession session) {
-                    try{
+                    try {
                         //CaptureSession이 정상적으로 생성하였다면 CaptureRequest객체를 전송
                         session.capture(captureBuilder.build(), captureListener, backgroundHandler);
-                    }catch (CameraAccessException e){
+                    } catch (CameraAccessException e) {
                         e.printStackTrace();
                     }
                 }
@@ -422,7 +424,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onConfigureFailed(CameraCaptureSession session) {
                 }
             }, backgroundHandler);
-        }catch (CameraAccessException e){
+        } catch (CameraAccessException e) {
             e.printStackTrace();
         }
     }
