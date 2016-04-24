@@ -2,9 +2,14 @@ package me.opklnm102.excamera2;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ConfigurationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.ImageFormat;
+import android.graphics.Matrix;
+import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
@@ -22,8 +27,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
@@ -43,12 +50,16 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+
+    public static final int REQUEST_PERMISSION_CAMERA_CODE = 1000;
 
     Size mPreviewSize;  //미리보기 화면의 크기를 관리.
     TextureView mTextureView;
@@ -104,6 +115,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_PERMISSION_CAMERA_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(MainActivity.this, "퍼미션 허가", Toast.LENGTH_SHORT).show();
+                }
+        }
+    }
+
     // 2단계 작업으로 TextureView객체가 정상적으로 화면에 나타나면(이 과정을 오픈이라 부른다)
     // Camera Device객체를 생성
     private TextureView.SurfaceTextureListener mSurfaceTextureListener = new TextureView.SurfaceTextureListener() {
@@ -119,7 +141,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
             Log.d(TAG, " onSurfaceTextureSizeChanged");
-//            configureTransform(width, height);
+
+            //뷰의 너비와 높이가 변경되면 아래 메소드를 호출하여 뷰의 화면 비율을 다시 잡는다.
+            configureTransform(width, height);
         }
 
         @Override
@@ -159,13 +183,227 @@ public class MainActivity extends AppCompatActivity {
                 //                                          int[] grantResults)
                 // to handle the case where the user grants the permission. See the documentation
                 // for ActivityCompat#requestPermissions for more details.
+
                 Toast.makeText(MainActivity.this, "camera permission null", Toast.LENGTH_SHORT).show();
+
+                //퍼미션 요청
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSION_CAMERA_CODE);
                 return;
             }
+
+            //단말기의 화면 방향에 따라 화면 크기와 비율을 맞춘다.
+            configureTransform(width, height);
             manager.openCamera(cameraId, mStateCallback, null);
         } catch (CameraAccessException e) {
             //예외는 Camera Device에 정상적인 접근이 어려울 때 발생
             e.printStackTrace();
+        }
+    }
+
+    //화면 크기와 화면 비율을 조정
+//    private void configureTransform(int width, int height){
+//        if(mTextureView == null || mPreviewSize == null){
+//            return;
+//        }
+//
+//        //단말기의 방향이 변경되었는지 확인. 0(세로), 1(반시계 방향으로 단말기가 +90도로 회전)
+//        int rotation = getWindowManager().getDefaultDisplay().getRotation();
+//        Matrix matrix = new Matrix();
+//        RectF viewRect = new RectF(0, 0, width, height);
+//
+//        //사진의 미리보기 화면 비율을 계산
+//        float aspect = (float)mPreviewSize.getWidth() / mPreviewSize.getHeight();
+//
+//        //현대 텍스처뷰 중앙의 위치를 파악. 좌표와 회전은 float타입을 사용
+//        float centerX = viewRect.centerX();
+//        float centerY = viewRect.centerY();
+//
+//        if(rotation == Surface.ROTATION_90 || rotation == Surface.ROTATION_270){
+//            /*
+//            화면 비율에 따라 화면 크기를 조절하기 싫다면 전체 화면으로 한다.
+//            DisplayMetrics metrics = getResources().getDisplayMetrics();
+//            float x = (float) height / metrics.widthPixels;
+//            float y = (float) width / metrics.heightPixels;
+//            matrix.postScale(x, y, centerX, centerY);
+//             */
+//            matrix.postScale(1/aspect, aspect, centerX, centerY);
+//
+//            //스마트폰의 반시계 방향은 카메라 입장에서 시계 방향이 된다. 반대로 회전 시킨다.
+//            matrix.postRotate(90 * (rotation - 2), centerX, centerY);
+//        }else if(Surface.ROTATION_180 == rotation){
+//            matrix.postRotate(180, centerX, centerY);
+//        }
+//
+//        //행렬을 사용하여 텍스처뷰의 화면을 변경.
+//        mTextureView.setTransform(matrix);
+//    }
+
+    //뷰의 크기를 화면 비율에 따라 늘린다.
+    //매개변수는 텍스처뷰의 너비와 높이
+    private void configureTransform(int viewWidth, int viewHeight){
+        Activity activity = MainActivity.this;
+
+        //단말기의 화면과 카메라의 미리보기 화면이 정상적으로 생성되었을 때 사용
+        if(mTextureView == null || mPreviewSize == null || activity == null){
+            return;
+        }
+
+        int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
+        Matrix matrix = new Matrix();
+
+        //미리보기로 제공 가능한 화면의 해상도는 다음과 같다.
+//        CameraCharacteristics cameraCharacteristics = manager.getCameraCharacteristics(cameraId);
+//        StreamConfigurationMap map = cameraCharacteristics.get(
+//                CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
+//        mPreviewSize = map.getOutputSizes(SurfaceTexture.class)[0];
+
+        // RectF(float left, float top, float right, float bottom)를 사용하여 직사각형을 얻는다.
+        // 단말기가 수평으로 눕혀있다하더라도 카메라에서 사용하는 미리보기 화면은 아직 단말기의 방향이 수직 방향이라는 가정하에 높이를 너비로 사용하고 너비를 높이로 사용
+        RectF viewRect = new RectF(0, 0, viewWidth, viewHeight);
+        RectF bufferRect = new RectF(0, 0, mPreviewSize.getHeight(), mPreviewSize.getWidth());
+
+        float centerX = viewRect.centerX();
+        float centerY = viewRect.centerY();
+
+        //단말기가 세로 방향으로 세워져 있다면 미리보기 방향과 같은 방향이므로 별다른 작업X
+        //세로 방향에 대해 화면 비율을 맞추는 것은 별 의미가 없다.
+        if(rotation == Surface.ROTATION_90 || rotation == Surface.ROTATION_270){
+            /*
+            단말기의 방향이 수평 방향일 때 텍스처뷰의 중앙 위치와 미리보기 화면의 중앙 위치를 서로 일치하도록 맞춘다.
+            만약 서로 일치하지 않는다면 화면 크기가 다른 형태로 변환된다.
+            사각형의 위치를 (dx, dy)만큼 이동
+             */
+            bufferRect.offset(centerX - bufferRect.centerX(), centerY - bufferRect.centerY());
+
+            /*
+            미리보기 화면은 단말기가 제공할 수 있는 뷰 크기 가운데 되도록 현재 텍스처뷰의 크기보다 조금 큰 해상도 선택
+            물론 해상도가 높으면 화면 크기만큼 시스템 로드를 발생
+            현재 텍스처뷰의 크기를 선택한 미리보기 화면 크기로 맞춘다.
+            (RectF src, RectF dst, Matrix.ScaleToFit stf) src를 dst에 맞추기위해 src를 축소,확대 한다.
+            ScaleToFit은 열거형으로 다음과 같은 상수 제공
+            - public static final Matrix.ScaleToFit CENTER
+            원래 크기를 유지하면서 직사각형의 중앙을 기준으로 각각(x,y)의 픽셀 크기를 늘리거나 줄여서 맞춘다.
+            - public static final Matrix.ScaleToFit START
+            직사각형의 왼쪽 위의 꼭지점을 서로 맞춘 상태에서 같은 크기로 픽셀을 늘리거나 줄여서 맞춘다.
+            - public static final Matrix.ScaleToFit END
+            직사각형의 오른쪽 아래의 꼭지점을 서로 맞춘 상태에서 같은 크기로 픽셀을 늘리거나 줄여서 맞춘다.
+            - public static final Matrix.ScaleToFit FILL
+            중앙을 기준으로 , x,y축 각각 독립적으로 직사각형이 서로 꽉차도록 크기를 늘리거나 줄여서 맞춘다.
+             다른 상수는 X축을 기준으로  Y축을 맞추거나, Y축을 기준으로 X축을 맞추어 src가 dst 내부로 들어가지만
+             FILL은 이미지가 이글어지거나 축소되더라도 서로 직사각형을 맞추게 된다.
+             */
+            matrix.setRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.FILL);
+
+            //단말기와 미리보기 화면 모두 가로 방향으로 누워있는 상태이므로 화면과 미리보기 화면 간의 높이와 너비의 비율 차이를
+            //계산하고 가장 큰 차이가 나는 비율을 선택
+            float scale = Math.max((float)viewHeight / mPreviewSize.getHeight(),
+                    (float)viewWidth / mPreviewSize.getWidth());
+
+            /*
+            제일 큰 차이가 나는 비율에 맞추어 텍스처뷰의 크기를 늘리는 행렬을 만든다.
+            이때 세로축이나 가록축이나 화면 비율 차이가 큰 것이 기준이 된다.
+            (float Sx, flost Sy, flost px, flost py)
+            (px, py)위치를 좌표의 원점으로 인시갛고 원점을 기준으로 x축의 포인터(또는 좌표)는 Sx 비율에 따라 늘리거나 줄인다.
+            동시에 y축의 포인터는 Sy 비율에 따라 늘리거나 줄인다.
+             */
+            matrix.postScale(scale, scale, centerX, centerY);
+
+            /*
+            단말기의 머리 방향이 반시계 방향으로 회전하여 수평 방향을 만들면 +90도가 된다.
+            역으로 시계방향으로 회전하면 -90도가 된다.
+            카메라의 방향은 반대이므로 -90도가 되도록 맞춘다.
+            작업의 최종결과는 텍스처뷰는 실제 뷰보다 좀더 커진 상태로 만들어진다.
+            (float degrees, float px, float py) - (회전각, 중심x, 줌심y)
+            Camera2 API에서 사용하는 라이브러리는 안드로이드 프레임워크와 무관하게 작동. 따라서 인위적으로 회전하도록 만들어주어야한다.
+             */
+            matrix.postRotate(90 * (rotation - 2), centerX, centerY);
+        }else if(rotation == Surface.ROTATION_180){
+            //미리보기는 시계방향으로 이동하고 화면 방향은 반시계방향으로 이동하더라도
+            //뒤집었을 때는 결과적으로 동일한 방향을 가리키게 된다.
+            matrix.postRotate(180, centerX, centerY);
+        }
+        mTextureView.setTransform(matrix);
+    }
+
+    //이미지 포맷과 텍스처뷰 클래스에 맞추어 화면 비율과 해상도를 알아보는 메소드
+    //클래스와 함께 출력할 수 있는 이미지의 크기는  화면 비율에 따라 사전에 정해져 있다.
+    private void setUpCameraOutputs(int width, int height){
+        Activity activity = MainActivity.this;
+
+        CameraManager manager = (CameraManager) activity.getSystemService(Context.CAMERA_SERVICE);
+
+        try{
+            for(String cameraId:manager.getCameraIdList()){
+                CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);
+
+                //앞면 카메라는 해상도가 떨어지므로 주로 뒷면 카메라를 사용
+                if(characteristics.get(CameraCharacteristics.LENS_FACING) == CameraCharacteristics.LENS_FACING_FRONT){
+                    continue;
+                }
+
+                StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
+
+                //일반적으로 사진 이미지는 포맷이 제공할 수 있는 최대크기를 사용
+                //다음 max()를 사용해 제공된 이미지의 크기를 서로 비교하여 최대 크기를 Size객체로 반환하는 기능을 한다.
+                Size largest = Collections.max(
+                        Arrays.asList(map.getOutputSizes(ImageFormat.JPEG)), new CompareSizesByArea());
+
+                ImageReader imageReader = ImageReader.newInstance(largest.getWidth(), largest.getHeight(), ImageFormat.JPEG, /*maxImages*/2);
+
+                /*
+                미리보기 화면은 또다른 하나의 동영상이므로 너무 큰 화면을 사용하거나
+                너무 큰 프레임-레이트를 사용한다면 시스템에 많은 부담을 주게 된다.
+                따라서 가능하다면 적당한 크기로 선택하는 것이 좋다.
+                여기서는 캡처하고자 하는 사진 이미지와 동일한 화면 비율을 선택
+                 */
+                mPreviewSize = chooseOptimalSize(map.getOutputSizes(SurfaceTexture.class), width, height, largest);
+
+                //화면 방향에 따른 뷰를 그릴때 가로와 세로의 크기를 정한다.
+                int orientation = getResources().getConfiguration().orientation;
+                if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+                    //Todo: 책의 코드가 안돌아간다.
+                }else{
+
+                }
+
+                return;
+            }
+        }catch (CameraAccessException e){
+            e.printStackTrace();
+        }catch (NullPointerException e){
+            //단말기에서 기능을 제공하지 않을 때
+        }
+    }
+
+    private static Size chooseOptimalSize(Size[] choices, int width, int height, Size aspectRatio){
+        List<Size> bigEnough = new ArrayList<>();
+        int w = aspectRatio.getWidth();
+        int h = aspectRatio.getHeight();
+
+        //화면 비율이 같고 현재 뷰의 화면보다 큰 모두 화면을 모은다
+        for(Size option:choices){
+            if(option.getHeight() == option.getWidth() * h / w && (option.getWidth() >= width || option.getHeight() >= height)){
+                bigEnough.add(option);
+            }
+        }
+
+        //모은 화면 가운데 가능한 가장 작은 화면의 크기를 선택
+        if(bigEnough.size() > 0){
+            return Collections.min(bigEnough, new CompareSizesByArea());
+        }else {
+            Log.d(TAG, " Couldn't find any suitable preview size");
+            return choices[0];
+        }
+    }
+
+    //Collection.min()에서 사용하는 비교클래스
+    static class CompareSizesByArea implements Comparator<Size>{
+
+        @Override
+        public int compare(Size lhs, Size rhs) {
+            //signum()은 음수, 양수, 제로를 식별하는 메소드
+            //양수는 +1, 음수는 -1, 제로는 0을 반환
+            return Long.signum((long)lhs.getWidth() * lhs.getHeight() - (long) rhs.getWidth() * rhs.getHeight());
         }
     }
 
