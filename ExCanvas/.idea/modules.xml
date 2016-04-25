@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ExCanvas.iml" filepath="$PROJECT_DIR$/ExCanvas.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/canvas/app.iml" filepath="$PROJECT_DIR$/canvas/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shader/shader.iml" filepath="$PROJECT_DIR$/shader/shader.iml" />
     </modules>
   </component>
 </project>
