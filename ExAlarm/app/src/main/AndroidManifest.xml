@@ -12,11 +12,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
 
         <receiver
@@ -29,6 +25,20 @@
             android:enabled="true"
             android:exported="true">
         </receiver>
+
+        <receiver
+            android:name=".AlarmWeekReceiver"
+            android:enabled="true"
+            android:exported="true">
+        </receiver>
+
+        <activity android:name=".WeekAlarmActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
