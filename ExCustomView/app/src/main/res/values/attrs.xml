@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--위젯 이름-->
+    <declare-styleable name="SoundEditText2">
+        <!--name:속성이름 format:타입-->
+        <attr name="sound" format="integer"/>
+        <attr name="volume" format="float"/>
+        <attr name="speed" format="float"/>
+    </declare-styleable>
+</resources>
