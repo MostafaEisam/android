@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ExSystemSettings.iml" filepath="$PROJECT_DIR$/ExSystemSettings.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bookhelper/bookhelper.iml" filepath="$PROJECT_DIR$/bookhelper/bookhelper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/powermanagement/powermanagement.iml" filepath="$PROJECT_DIR$/powermanagement/powermanagement.iml" />
+      <module fileurl="file://$PROJECT_DIR$/systemsetting/systemsetting.iml" filepath="$PROJECT_DIR$/systemsetting/systemsetting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wallpaper/wallpaper.iml" filepath="$PROJECT_DIR$/wallpaper/wallpaper.iml" />
+    </modules>
+  </component>
+</project>

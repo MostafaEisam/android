@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="colors">
+        <item>검정</item>
+        <item>흰색</item>
+        <item>짙은 회색</item>
+        <item>회색</item>
+        <item>옅은 회색</item>
+        <item>빨강</item>
+        <item>연두</item>
+        <item>파랑</item>
+        <item>노랑</item>
+        <item>하늘색</item>
+        <item>분홍</item>
+        <item>초록</item>
+        <item>남색</item>
+    </string-array>
+    <string-array name="gradientdir">
+        <item>수직</item>
+        <item>수평</item>
+        <item>우상향</item>
+        <item>우하향</item>
+    </string-array>
+</resources>
