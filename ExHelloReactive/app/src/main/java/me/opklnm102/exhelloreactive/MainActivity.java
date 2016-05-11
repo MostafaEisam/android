@@ -1,24 +1,41 @@
 package me.opklnm102.exhelloreactive;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.os.StrictMode;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.opklnm102.exhelloreactive.fragment.DistinctExampleFragment;
+import me.opklnm102.exhelloreactive.fragment.FilterExampleFragment;
+import me.opklnm102.exhelloreactive.fragment.FirstExampleFragment;
+import me.opklnm102.exhelloreactive.fragment.MapExampleFragment;
+import me.opklnm102.exhelloreactive.fragment.ScanExampleFragment;
+import me.opklnm102.exhelloreactive.fragment.SecondExampleFragment;
+import me.opklnm102.exhelloreactive.fragment.TakeExampleFragment;
+import me.opklnm102.exhelloreactive.fragment.ThirdExampleFragment;
+import me.opklnm102.exhelloreactive.navigation_drawer.NavigationDrawerCallbacks;
+import me.opklnm102.exhelloreactive.navigation_drawer.NavigationDrawerFragment;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationDrawerCallbacks {
+
+    public static final String TAG = MainActivity.class.getSimpleName();
 
     @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    Toolbar mToolbar;
+
+    @BindView(R.id.drawer)
+    DrawerLayout mDrawerLayout;
+
+    NavigationDrawerFragment mNavigationDrawerFragment;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,28 +44,33 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        setSupportActionBar(toolbar);
+        setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         FragmentManager fm = getSupportFragmentManager();
 
-        fm.beginTransaction()
-                .replace(R.id.fragment_container, ThirdExampleFragment.newInstance())
-                .commit();
+        mNavigationDrawerFragment = (NavigationDrawerFragment) fm.findFragmentById(R.id.fragment_drawer);
+        mNavigationDrawerFragment.setup(R.id.fragment_drawer, mDrawerLayout, mToolbar);
 
+        if(BuildConfig.DEBUG){
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+            .detectAll()
+            .penaltyLog()
+            .build());
 
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+            .detectAll()
+            .penaltyLog()
+            .build());
+        }
 
+        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
 
-
+        if(fragment == null){
+            fm.beginTransaction()
+                    .add(R.id.fragment_container, FirstExampleFragment.newInstance())
+                    .commit();
+        }
     }
 
     @Override
@@ -59,17 +81,59 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    public void onBackPressed() {
+        if(mNavigationDrawerFragment.isDrawerOpen()){
+            mNavigationDrawerFragment.closeDrawer();
+        }else {
+            super.onBackPressed();
         }
+    }
 
-        return super.onOptionsItemSelected(item);
+    @Override
+    public void onNavigationDrawerItemSelected(int position) {
+        FragmentManager fm = getSupportFragmentManager();
+        switch (position){
+            case 0:
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, FirstExampleFragment.newInstance())
+                        .commit();
+                break;
+            case 1:
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, SecondExampleFragment.newInstance())
+                        .commit();
+                break;
+            case 2:
+            fm.beginTransaction()
+                    .replace(R.id.fragment_container, ThirdExampleFragment.newInstance())
+                    .commit();
+            break;
+            case 3:
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, FilterExampleFragment.newInstance())
+                        .commit();
+                break;
+            case 4:
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, TakeExampleFragment.newInstance())
+                        .commit();
+                break;
+            case 5:
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, DistinctExampleFragment.newInstance())
+                        .commit();
+                break;
+            case 6:
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, MapExampleFragment.newInstance())
+                        .commit();
+                break;
+            case 7:
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, ScanExampleFragment.newInstance())
+                        .commit();
+                break;
+
+        }
     }
 }

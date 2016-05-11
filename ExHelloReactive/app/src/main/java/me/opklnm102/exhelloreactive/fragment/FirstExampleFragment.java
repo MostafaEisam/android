@@ -1,4 +1,4 @@
-package me.opklnm102.exhelloreactive;
+package me.opklnm102.exhelloreactive.fragment;
 
 
 import android.content.Context;
@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +29,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.opklnm102.exhelloreactive.App;
+import me.opklnm102.exhelloreactive.AppInfoList;
+import me.opklnm102.exhelloreactive.R;
+import me.opklnm102.exhelloreactive.Utils;
 import me.opklnm102.exhelloreactive.adapter.AppInfoListAdapter;
 import me.opklnm102.exhelloreactive.model.AppInfo;
 import me.opklnm102.exhelloreactive.model.AppInfoRich;
@@ -42,7 +45,7 @@ import rx.schedulers.Schedulers;
 public class FirstExampleFragment extends Fragment {
 
     @BindView(R.id.recyclerView_app_info)
-    RecyclerView rvAppInfolist;
+    RecyclerView rvAppInfo;
 
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -58,10 +61,15 @@ public class FirstExampleFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public static FirstExampleFragment newInstance() {
+        FirstExampleFragment fragment = new FirstExampleFragment();
+        return fragment;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_first_example, container, false);
+        View view = inflater.inflate(R.layout.fragment_example, container, false);
         mUnbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -70,19 +78,21 @@ public class FirstExampleFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rvAppInfolist.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        rvAppInfo.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         mAppInfoListAdapter = new AppInfoListAdapter(view.getContext());
-        rvAppInfolist.setAdapter(mAppInfoListAdapter);
+        rvAppInfo.setAdapter(mAppInfoListAdapter);
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.myPrimaryColor));
         mSwipeRefreshLayout.setProgressViewOffset(false, 0,
                 (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics()));
 
         //Progress
-        mSwipeRefreshLayout.setEnabled(false);
+//        mSwipeRefreshLayout.setEnabled(false);
         mSwipeRefreshLayout.setRefreshing(true);
-        rvAppInfolist.setVisibility(View.GONE);
+        mSwipeRefreshLayout.setEnabled(true);
+        mSwipeRefreshLayout.setOnRefreshListener(this::refreshTheList);
+        rvAppInfo.setVisibility(View.GONE);
 
         getFileDir()
                 .subscribeOn(Schedulers.io())
@@ -117,7 +127,7 @@ public class FirstExampleFragment extends Fragment {
 
                     @Override
                     public void onNext(List<AppInfo> appInfos) {
-                        rvAppInfolist.setVisibility(View.VISIBLE);
+                        rvAppInfo.setVisibility(View.VISIBLE);
                         mAppInfoListAdapter.addAppInfos(appInfos);
                         mSwipeRefreshLayout.setRefreshing(false);
                         storeList(appInfos);
@@ -137,6 +147,7 @@ public class FirstExampleFragment extends Fragment {
         });
     }
 
+    //설치된 앱 리스트를 검색하고 이를 옵저버에게 제공
     private Observable<AppInfo> getApps() {
         return Observable.create(subscriber -> {
             List<AppInfoRich> apps = new ArrayList<AppInfoRich>();
@@ -155,6 +166,8 @@ public class FirstExampleFragment extends Fragment {
                 String iconPath = mFileDir + "/" + name;
                 Utils.storeBitmap(App.instance, icon, name);
 
+                //새로운 아이템을 발행하거나 시퀀스를 완료하기 전에 Observer 구독여부를 검사
+                //기다리는 이가 없으면 불필요한 아이템 생성X
                 if (subscriber.isUnsubscribed()) {
                     return;
                 }
@@ -168,7 +181,9 @@ public class FirstExampleFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         mUnbinder.unbind();
+        super.onDestroyView();
     }
+
+
 }
