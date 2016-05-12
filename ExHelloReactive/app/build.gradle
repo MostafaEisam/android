@@ -35,23 +35,31 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:design:23.3.0'
+    compile 'com.android.support:recyclerview-v7:23.3.0'
+    compile 'com.android.support:cardview-v7:23.3.0'
+    compile 'com.android.support:support-v4:23.3.0'
 
     def rxAndroidVersion = '1.2.0'
     compile "io.reactivex:rxandroid:$rxAndroidVersion"
+    compile 'io.reactivex:rxjava:x.y.z'
+    compile 'io.reactivex:rxjava-joins:0.22.0'
+    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
 
     //ButterKnife
     def butterKnifeVersion = '8.0.1'
     compile "com.jakewharton:butterknife:$butterKnifeVersion"
     apt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
+    def retrofitVersion = '2.0.2'
+    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
 
-
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:design:23.3.0'
-    compile 'com.android.support:recyclerview-v7:23.3.0'
-    compile 'com.android.support:cardview-v7:23.3.0'
-    compile 'com.android.support:support-v4:23.3.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.alterego:advancedandroidlogger:1.0.7@aar'
-    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.google.guava:guava:19.0'
+    compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
+    compile 'com.github.rey5137:material:1.2.2'
 }

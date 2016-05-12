@@ -26,12 +26,14 @@ public class Utils {
         return bitmap;
     }
 
+    //Non-Blocking Version
     public static void storeBitmap(Context context, Bitmap bitmap, String filename) {
         Schedulers.io().createWorker().schedule(() -> {
             blockingStoreBitmap(context, bitmap, filename);
         });
     }
 
+    //Blocking Version
     private static void blockingStoreBitmap(Context context, Bitmap bitmap, String filename) {
         FileOutputStream fOut = null;
         try {

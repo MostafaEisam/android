@@ -1,5 +1,6 @@
 package me.opklnm102.exhelloreactive;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
@@ -11,14 +12,23 @@ import android.view.Menu;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.opklnm102.exhelloreactive.fragment.AndThenWhenExampleFragment;
+import me.opklnm102.exhelloreactive.fragment.CombineLatestExampleFragment;
 import me.opklnm102.exhelloreactive.fragment.DistinctExampleFragment;
 import me.opklnm102.exhelloreactive.fragment.FilterExampleFragment;
 import me.opklnm102.exhelloreactive.fragment.FirstExampleFragment;
+import me.opklnm102.exhelloreactive.fragment.GroupByExampleFragment;
+import me.opklnm102.exhelloreactive.fragment.JoinExampleFragment;
+import me.opklnm102.exhelloreactive.fragment.LongTaskFragment;
 import me.opklnm102.exhelloreactive.fragment.MapExampleFragment;
+import me.opklnm102.exhelloreactive.fragment.MergeExampleFragment;
+import me.opklnm102.exhelloreactive.fragment.NetworkTaskFragment;
 import me.opklnm102.exhelloreactive.fragment.ScanExampleFragment;
 import me.opklnm102.exhelloreactive.fragment.SecondExampleFragment;
+import me.opklnm102.exhelloreactive.fragment.SharedPreferencesListExampleFragment;
 import me.opklnm102.exhelloreactive.fragment.TakeExampleFragment;
 import me.opklnm102.exhelloreactive.fragment.ThirdExampleFragment;
+import me.opklnm102.exhelloreactive.fragment.ZipExampleFragment;
 import me.opklnm102.exhelloreactive.navigation_drawer.NavigationDrawerCallbacks;
 import me.opklnm102.exhelloreactive.navigation_drawer.NavigationDrawerFragment;
 
@@ -35,8 +45,6 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerC
 
     NavigationDrawerFragment mNavigationDrawerFragment;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,10 +60,15 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerC
         mNavigationDrawerFragment = (NavigationDrawerFragment) fm.findFragmentById(R.id.fragment_drawer);
         mNavigationDrawerFragment.setup(R.id.fragment_drawer, mDrawerLayout, mToolbar);
 
+        /*
+         Debug Build에서만 StrictMode 활성화
+         Main Thread 사용에 대한 모든 위반사항과 Activities, BroadcastReceivers, Sqlite객체 등
+         Memory Leak에 영향을 미칠 가능성이 있는 모든 위반 사항을 알려준다.
+        */
         if(BuildConfig.DEBUG){
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
             .detectAll()
-            .penaltyLog()
+            .penaltyLog()  //위반사항이 생길 때마다 LogCat에 출력
             .build());
 
             StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
@@ -133,7 +146,54 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerC
                         .replace(R.id.fragment_container, ScanExampleFragment.newInstance())
                         .commit();
                 break;
-
+            case 8:
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, GroupByExampleFragment.newInstance())
+                        .commit();
+                break;
+            case 9:
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, MergeExampleFragment.newInstance())
+                        .commit();
+                break;
+            case 10:
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, ZipExampleFragment.newInstance())
+                        .commit();
+                break;
+            case 11:
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, JoinExampleFragment.newInstance())
+                        .commit();
+                break;
+            case 12:
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, CombineLatestExampleFragment.newInstance())
+                        .commit();
+                break;
+            case 13:
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, AndThenWhenExampleFragment.newInstance())
+                        .commit();
+                break;
+            case 14:
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, SharedPreferencesListExampleFragment.newInstance())
+                        .commit();
+                break;
+            case 15:
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, LongTaskFragment.newInstance())
+                        .commit();
+                break;
+            case 16:
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, NetworkTaskFragment.newInstance())
+                        .commit();
+                break;
+            case 17:
+                startActivity(new Intent(this, SoActivity.class));
+                break;
         }
     }
 }
