@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Attr</string>
+
+    <string-array name="interpolator">
+        <item>Linear</item>
+        <item>Accelerate</item>
+        <item>Decelerate</item>
+        <item>AccelerateDecelerate</item>
+        <item>Anticipate</item>
+        <item>Bounce</item>
+        <item>Cycle</item>
+        <item>Overshoot</item>
+        <item>AnticipateOvershoot</item>
+    </string-array>
+
+</resources>
