@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ExAttrAnimation.iml" filepath="$PROJECT_DIR$/ExAttrAnimation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/animatorset/animatorset.iml" filepath="$PROJECT_DIR$/animatorset/animatorset.iml" />
+      <module fileurl="file://$PROJECT_DIR$/evaluator/evaluator.iml" filepath="$PROJECT_DIR$/evaluator/evaluator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/interpolator/interpolator.iml" filepath="$PROJECT_DIR$/interpolator/interpolator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/objectanimator/objectanimator.iml" filepath="$PROJECT_DIR$/objectanimator/objectanimator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/valueanimator/valueanimator.iml" filepath="$PROJECT_DIR$/valueanimator/valueanimator.iml" />
+    </modules>
+  </component>
+</project>

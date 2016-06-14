@@ -1,0 +1,53 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/linearLayout_root"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" >
+    <Button
+        android:id="@+id/button_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Linear" />
+
+    <Button
+        android:id="@+id/button_accelerate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accelerate" />
+
+    <Button
+        android:id="@+id/button_decelerate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Decelerate" />
+
+    <Button
+        android:id="@+id/button_bounce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bounce" />
+
+    <Button
+        android:id="@+id/button_overshoot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Overshoot" />
+
+    <Button
+        android:id="@+id/button_cycle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cycle" />
+
+    <Button
+        android:id="@+id/button_anticipate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Anticipate" />
+
+    <Button
+        android:id="@+id/button_reverse_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reverse Linear" />
+</LinearLayout>
