@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Layout</string>
+
+    <string-array name="list_item">
+        <item>리스트 뷰의 항목들이</item>
+        <item>오른쪽에서 왼쪽으로</item>
+        <item>이동하면서 추가되는</item>
+        <item>레이아웃 애니메이션</item>
+        <item>데모입니다.</item>
+    </string-array>
+</resources>

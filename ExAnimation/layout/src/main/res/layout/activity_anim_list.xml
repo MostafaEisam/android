@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ListAnimActivity">
+
+    <!--persistentDrawingCache - 최적화
+    뷰그룹은 그리기 표면에 대한 캐시를 유지하는데 캐시는 메모리를 많이 소모하지만 가비지 컬렉션 회수를 줄여
+    속도에 유리
+    default로 스크롤시에만 캐시를 유지하지만 all로 지정하면 애니메이션시에도 캐시를 유지
+    레이아웃 애니메이션을 하는 뷰그룹에는 이 속성을 지정하는 것이 유리 -->
+    <ListView
+        android:id="@+id/listView"
+        android:persistentDrawingCache="all"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       />
+    <!--XML로 지정시
+    android:layoutAnimation="@anim/controller_anim_list"-->
+
+</RelativeLayout>

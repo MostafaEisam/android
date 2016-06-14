@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/attr" />
             <option value="$PROJECT_DIR$/frame" />
+            <option value="$PROJECT_DIR$/layout" />
             <option value="$PROJECT_DIR$/listener" />
             <option value="$PROJECT_DIR$/set" />
             <option value="$PROJECT_DIR$/tween" />
@@ -21,6 +22,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/attr" />
             <option value="$PROJECT_DIR$/frame" />
+            <option value="$PROJECT_DIR$/layout" />
             <option value="$PROJECT_DIR$/listener" />
             <option value="$PROJECT_DIR$/set" />
             <option value="$PROJECT_DIR$/tween" />

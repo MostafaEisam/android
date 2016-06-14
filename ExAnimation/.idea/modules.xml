@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/ExAnimation.iml" filepath="$PROJECT_DIR$/ExAnimation.iml" />
       <module fileurl="file://$PROJECT_DIR$/attr/attr.iml" filepath="$PROJECT_DIR$/attr/attr.iml" />
       <module fileurl="file://$PROJECT_DIR$/frame/frame.iml" filepath="$PROJECT_DIR$/frame/frame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/layout/layout.iml" filepath="$PROJECT_DIR$/layout/layout.iml" />
       <module fileurl="file://$PROJECT_DIR$/listener/listener.iml" filepath="$PROJECT_DIR$/listener/listener.iml" />
       <module fileurl="file://$PROJECT_DIR$/set/set.iml" filepath="$PROJECT_DIR$/set/set.iml" />
       <module fileurl="file://$PROJECT_DIR$/tween/tween.iml" filepath="$PROJECT_DIR$/tween/tween.iml" />

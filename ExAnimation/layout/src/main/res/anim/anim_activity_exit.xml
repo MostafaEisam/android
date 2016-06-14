@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/decelerate_interpolator">
+    <!--0.3초만에 화면 아래쪽으로 완전히 내려가되 잽싸게 자리를 비켜주려면 초반에 속도가 빠른
+    decelerate_interpolator를 적용하는 것이 좋다.-->
+
+    <translate
+        android:fromYDelta="0"
+        android:toYDelta="100%"
+        android:duration="300"/>
+</set>

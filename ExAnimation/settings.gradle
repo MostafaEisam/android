@@ -1,1 +1,1 @@
-include ':frame', ':tween', ':attr', ':set', ':xml', ':listener'
+include ':frame', ':tween', ':attr', ':set', ':xml', ':listener', ':layout'
