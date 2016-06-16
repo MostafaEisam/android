@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyHeight="50dp"
+    android:keyWidth="20%p">
+    <!--문자를 입력받는 키보드의 키 배치정보 리소스-->
+    <!--각키의 폭은 부모의 20%-->
+    <!--행이나 각키에서 크기 재정의 가능-->
+
+    <Row>
+        <Key android:codes="97" android:keyLabel="a" android:keyEdgeFlags="left"/>
+        <Key android:codes="98" android:keyLabel="b" />
+        <Key android:codes="99" android:keyLabel="c" />
+        <Key android:codes="100" android:keyLabel="d" />
+        <Key android:codes="101" android:keyLabel="e" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row android:rowEdgeFlags="bottom">
+        <Key android:codes="-1" android:keyIcon="@mipmap/ic_launcher" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="-2" android:keyLabel="Num"/>
+        <Key android:codes="32" android:keyIcon="@mipmap/ic_launcher" android:isRepeatable="true"/>
+        <Key android:codes="-5" android:keyIcon="@mipmap/ic_launcher" android:isRepeatable="true"/>
+        <Key android:codes="10" android:keyIcon="@mipmap/ic_launcher" android:keyEdgeFlags="right"/>
+    </Row>
+</Keyboard>

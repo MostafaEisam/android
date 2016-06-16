@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<input-method xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--키보드의 속성값 작성-->
+    <!--isDefault - 다른 키보드가 없을 때 사용할 디폴트 키보드 지정-->
+    <!--settingsActivity - 키보드의 입력 옵션을 편집하는 액티비티 지정-->
+</input-method>

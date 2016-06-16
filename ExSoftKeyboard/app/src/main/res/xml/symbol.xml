@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+          android:keyHeight="50dp"
+          android:keyWidth="20%p">
+
+    <Row>
+        <Key android:codes="46" android:keyLabel="." android:keyEdgeFlags="left"/>
+        <Key android:codes="44" android:keyLabel="," />
+        <Key android:codes="63" android:keyLabel="/?" />
+        <Key android:codes="34" android:keyLabel="&quot;" />
+        <Key android:codes="37" android:keyLabel="%" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row android:rowEdgeFlags="bottom">
+        <Key android:codes="-1" android:keyIcon="@mipmap/ic_launcher" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="-2" android:keyLabel="Eng"/>
+        <Key android:codes="32" android:keyIcon="@mipmap/ic_launcher" android:isRepeatable="true"/>
+        <Key android:codes="-5" android:keyIcon="@mipmap/ic_launcher" android:isRepeatable="true"/>
+        <Key android:codes="10" android:keyIcon="@mipmap/ic_launcher" android:keyEdgeFlags="right"/>
+    </Row>
+</Keyboard>
