@@ -11,8 +11,10 @@
             <option value="$PROJECT_DIR$/animatorset" />
             <option value="$PROJECT_DIR$/evaluator" />
             <option value="$PROJECT_DIR$/interpolator" />
+            <option value="$PROJECT_DIR$/layout" />
             <option value="$PROJECT_DIR$/objectanimator" />
             <option value="$PROJECT_DIR$/valueanimator" />
+            <option value="$PROJECT_DIR$/xml" />
           </set>
         </option>
         <option name="myModules">
@@ -21,8 +23,10 @@
             <option value="$PROJECT_DIR$/animatorset" />
             <option value="$PROJECT_DIR$/evaluator" />
             <option value="$PROJECT_DIR$/interpolator" />
+            <option value="$PROJECT_DIR$/layout" />
             <option value="$PROJECT_DIR$/objectanimator" />
             <option value="$PROJECT_DIR$/valueanimator" />
+            <option value="$PROJECT_DIR$/xml" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -1,1 +1,1 @@
-include ':valueanimator', ':objectanimator', ':evaluator', ':interpolator', ':animatorset'
+include ':valueanimator', ':objectanimator', ':evaluator', ':interpolator', ':animatorset', ':xml', ':layout'

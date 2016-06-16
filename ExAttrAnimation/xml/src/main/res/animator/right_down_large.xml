@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="sequentially">
+    <!--ordering로 동시, 순차 실행 지정-->
+
+    <objectAnimator
+        android:propertyName="x"
+        android:duration="2000"
+        android:valueFrom="100"
+        android:valueTo="400"
+        android:valueType="intType"/>
+
+    <objectAnimator
+        android:propertyName="y"
+        android:duration="2000"
+        android:valueFrom="50"
+        android:valueTo="300"
+        android:valueType="intType"/>
+
+    <objectAnimator
+        android:propertyName="radius"
+        android:duration="2000"
+        android:valueFrom="20"
+        android:valueTo="80"
+        android:valueType="intType"/>
+</set>

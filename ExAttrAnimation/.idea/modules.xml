@@ -6,8 +6,10 @@
       <module fileurl="file://$PROJECT_DIR$/animatorset/animatorset.iml" filepath="$PROJECT_DIR$/animatorset/animatorset.iml" />
       <module fileurl="file://$PROJECT_DIR$/evaluator/evaluator.iml" filepath="$PROJECT_DIR$/evaluator/evaluator.iml" />
       <module fileurl="file://$PROJECT_DIR$/interpolator/interpolator.iml" filepath="$PROJECT_DIR$/interpolator/interpolator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/layout/layout.iml" filepath="$PROJECT_DIR$/layout/layout.iml" />
       <module fileurl="file://$PROJECT_DIR$/objectanimator/objectanimator.iml" filepath="$PROJECT_DIR$/objectanimator/objectanimator.iml" />
       <module fileurl="file://$PROJECT_DIR$/valueanimator/valueanimator.iml" filepath="$PROJECT_DIR$/valueanimator/valueanimator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xml/xml.iml" filepath="$PROJECT_DIR$/xml/xml.iml" />
     </modules>
   </component>
 </project>

@@ -27,15 +27,15 @@ public class AnimView extends View {
         mBall.setY(50);
         mBall.setRadius(20);
 
-        mToRight = ObjectAnimator.ofInt(mBall, "x", 100, 400);
+        mToRight = ObjectAnimator.ofInt(mBall, "x", 100, 800);
         mToRight.setDuration(2000);
         mToRight.addUpdateListener(mAnimatorUpdateListener);
 
-        mToDown = ObjectAnimator.ofInt(mBall, "y", 50, 300);
+        mToDown = ObjectAnimator.ofInt(mBall, "y", 50, 600);
         mToDown.setDuration(2000);
         mToDown.addUpdateListener(mAnimatorUpdateListener);
 
-        mEnLarge = ObjectAnimator.ofInt(mBall, "radius", 20, 40);
+        mEnLarge = ObjectAnimator.ofInt(mBall, "radius", 20, 120);
         mEnLarge.setDuration(2000);
         mEnLarge.addUpdateListener(mAnimatorUpdateListener);
     }
@@ -56,17 +56,18 @@ public class AnimView extends View {
 //                set.play(mToDown).before(mEnLarge);
                 break;
             case R.id.button2:
-
-
+                set.playSequentially(mToDown, mToRight, mEnLarge);
+//                set.play(mToRight).after(mToDown).before(mEnLarge);
                 break;
             case R.id.button3:
-
+                set.playTogether(mToRight, mToDown, mEnLarge);
+//                set.play(mToRight).with(mEnLarge).with(mToDown);
                 break;
             case R.id.button4:
-
+                set.play(mToRight).with(mEnLarge).before(mToDown);
                 break;
         }
-
+        set.start();
     }
 
     @Override
