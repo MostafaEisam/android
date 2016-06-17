@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="opklnm102.me.newswidget"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".ConfigActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".NewsDetailActivity">
+        </activity>
+
+        <receiver
+            android:name=".NewsWidget"
+            android:label="가짜 뉴스">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+
+                <!--커스텀 액션 수신. 최신뉴스로 갱신할 때 사용-->
+                <action android:name="opklnm102.me.newswidget.NewsWidget.ACTION_NEWS_CHANGE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/newsmeta"/>
+        </receiver>
+    </application>
+
+</manifest>

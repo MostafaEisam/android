@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ExAppWidget.iml" filepath="$PROJECT_DIR$/ExAppWidget.iml" />
+      <module fileurl="file://$PROJECT_DIR$/annivlistwidget/annivlistwidget.iml" filepath="$PROJECT_DIR$/annivlistwidget/annivlistwidget.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appwidgetmanager/app.iml" filepath="$PROJECT_DIR$/appwidgetmanager/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appwidgetmanager/appwidgetmanager.iml" filepath="$PROJECT_DIR$/appwidgetmanager/appwidgetmanager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/batterywidget/batterywidget.iml" filepath="$PROJECT_DIR$/batterywidget/batterywidget.iml" />
+      <module fileurl="file://$PROJECT_DIR$/clockwidget/clockwidget.iml" filepath="$PROJECT_DIR$/clockwidget/clockwidget.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datewidget/datewidget.iml" filepath="$PROJECT_DIR$/datewidget/datewidget.iml" />
+      <module fileurl="file://$PROJECT_DIR$/newswidget/newswidget.iml" filepath="$PROJECT_DIR$/newswidget/newswidget.iml" />
+    </modules>
+  </component>
+</project>

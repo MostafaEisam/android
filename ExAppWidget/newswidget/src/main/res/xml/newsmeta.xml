@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="110dp"
+    android:minHeight="40dp"
+    android:updatePeriodMillis="1800000"
+    android:initialLayout="@layout/newwidget"
+    android:configure="opklnm102.me.newswidget.ConfigActivity">
+    <!--설정을 처리할 액티비티의 경로를 지정하되 외부에서 호출되므로 패키지명까지 기술-->
+
+</appwidget-provider>

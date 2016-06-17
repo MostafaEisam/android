@@ -1,0 +1,29 @@
+<manifest package="opklnm102.me.batterywidget"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <receiver android:name=".BatteryWidget"
+                  android:label="배터리 표시">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                       android:resource="@xml/batterywidgetmeta"/>
+        </receiver>
+
+        <service android:name=".BatteryWidgetService"
+                 android:enabled="true">
+            <intent-filter>
+                <action android:name=".BatteryWidgetService"/>
+            </intent-filter>
+        </service>
+
+    </application>
+
+</manifest>
