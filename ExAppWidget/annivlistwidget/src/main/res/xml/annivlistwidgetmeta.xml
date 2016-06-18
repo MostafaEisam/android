@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="110dp"
+    android:minHeight="180dp"
+    android:updatePeriodMillis="0"
+    android:initialLayout="@layout/annivlistwidget"
+    android:minResizeHeight="40dp"
+    android:minResizeWidth="110dp"
+    android:resizeMode="vertical">
 
-</PreferenceScreen>
+</appwidget-provider>

@@ -8,6 +8,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <receiver android:name=".AnnivListWidget"
+                  android:label="기념일 목록">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                       android:resource="@xml/annivlistwidgetmeta"/>
+        </receiver>
+
+
+        <!--원격지의 데이터를 읽어야하므로
+          android:permission="android.permission.BIND_REMOTEVIEWS" 필요
+        -->
+        <service android:name=".AnnivListWidget$AnnivListWidgetService"
+                 android:permission="android.permission.BIND_REMOTEVIEWS"
+                 android:exported="false"/>
+
     </application>
 
 </manifest>
