@@ -1,16 +1,17 @@
 package me.dong.android_testing_codelabs.notedetail;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.support.test.espresso.Espresso;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.runner.RunWith;
 
 import me.dong.android_testing_codelabs.R;
 import me.dong.android_testing_codelabs.data.FakeNotesServiceApiImpl;
@@ -81,6 +82,7 @@ public class NoteDetailScreenTest {
         registerIdlingResource();
     }
 
+    @Test
     public void noteDetails_displayedInUi() throws Exception {
         // Check that the note title, description and image are displayed
         onView(withId(R.id.note_detail_title)).check(matches(withText(NOTE_TITLE)));
