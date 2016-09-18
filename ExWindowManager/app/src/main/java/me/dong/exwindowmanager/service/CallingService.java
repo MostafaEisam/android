@@ -119,7 +119,7 @@ public class CallingService extends Service {
     @RequiresPermission(value = Manifest.permission.SYSTEM_ALERT_WINDOW)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e(TAG, " onStartCommand()");
+        Log.d(TAG, " onStartCommand()");
 
         mWindowManager.addView(rootView, mParams);  //최상위 윈도우에 뷰 넣기
         setExtra(intent);
@@ -148,6 +148,7 @@ public class CallingService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.d(TAG, " onDestroy()");
         removePopup();
     }
 
