@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<accessibility-service
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeNotificationStateChanged"
+    android:accessibilityFeedbackType="feedbackAllMask"
+    android:accessibilityFlags="flagIncludeNotImportantViews"
+    android:notificationTimeout="100"
+    android:canRetrieveWindowContent="true"
+    android:packageNames="com.nhn.android.search"
+    android:description="@string/app_name"
+    android:settingsActivity="me.dong.notificationcapture.MainActivity"/>
+    <!-- packageNames - 이벤트 수집하고 싶은 패키지 명-->
+
