@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ExDagger.iml" filepath="$PROJECT_DIR$/ExDagger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/simple/simple.iml" filepath="$PROJECT_DIR$/simple/simple.iml" />
+      <module fileurl="file://$PROJECT_DIR$/simple-android/simple-android.iml" filepath="$PROJECT_DIR$/simple-android/simple-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/simple-android-graph/simple-android-graph.iml" filepath="$PROJECT_DIR$/simple-android-graph/simple-android-graph.iml" />
+    </modules>
+  </component>
+</project>
