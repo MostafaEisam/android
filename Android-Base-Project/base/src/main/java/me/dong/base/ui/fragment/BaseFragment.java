@@ -1,9 +1,15 @@
 package me.dong.base.ui.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import me.dong.base.utils.BusUtils;
 
 public abstract class BaseFragment extends Fragment {
@@ -13,9 +19,30 @@ public abstract class BaseFragment extends Fragment {
 
     private Bundle savedState;
 
+    protected Unbinder mUnbinder;
+
+    @LayoutRes
+    public abstract int getLayoutId();
+
+    public abstract void initView(View rootView);
+
     public BaseFragment() {
         fragmentId = (int) System.nanoTime();
         setArguments(new Bundle());
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(getLayoutId(), container, false);
+        mUnbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView(view);
     }
 
     @Override
@@ -50,6 +77,7 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
+        mUnbinder.unbind();
         saveStateToArguments();
         super.onDestroyView();
     }
