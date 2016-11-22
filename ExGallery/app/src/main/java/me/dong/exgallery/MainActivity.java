@@ -2,8 +2,6 @@ package me.dong.exgallery;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -25,9 +23,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import me.dong.exgallery.adapter.GalleryAdapter;
-import me.dong.exgallery.app.AppController;
-import me.dong.exgallery.model.Image;
+import me.dong.exgallery.remote.adapter.GalleryAdapter;
+import me.dong.exgallery.remote.app.AppController;
+import me.dong.exgallery.remote.model.Image;
 
 public class MainActivity extends AppCompatActivity {
 

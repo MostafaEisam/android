@@ -1,4 +1,4 @@
-package me.dong.exgallery.helper;
+package me.dong.exgallery.remote.helper;
 
 import android.annotation.TargetApi;
 import android.content.Context;

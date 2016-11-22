@@ -18,7 +18,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 
-import me.dong.exgallery.model.Image;
+import me.dong.exgallery.remote.model.Image;
 
 /**
  * Created by Dong on 2016-11-21.

@@ -1,4 +1,4 @@
-package me.dong.exgallery.adapter;
+package me.dong.exgallery.remote.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.List;
 
 import me.dong.exgallery.R;
-import me.dong.exgallery.model.Image;
+import me.dong.exgallery.remote.model.Image;
 
 /**
  * Created by Dong on 2016-11-21.

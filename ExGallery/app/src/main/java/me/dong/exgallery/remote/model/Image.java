@@ -1,4 +1,4 @@
-package me.dong.exgallery.model;
+package me.dong.exgallery.remote.model;
 
 import java.io.Serializable;
 

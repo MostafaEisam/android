@@ -1,4 +1,4 @@
-package me.dong.exgallery.app;
+package me.dong.exgallery.remote.app;
 
 import android.app.Application;
 import android.text.TextUtils;
