@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SwitchWithText">
+        <attr name="textPosition">
+            <!-- Value same as the android:gravity -->
+            <flag name="top" value="0x11"/>
+            <flag name="bottom" value="0x12"/>
+            <flag name="left" value="0x13"/>
+            <flag name="right" value="0x14"/>
+        </attr>
+
+        <attr name="textAlign">
+            <!-- Value same as the android:gravity -->
+            <flag name="top" value="0x11"/>
+            <flag name="bottom" value="0x12"/>
+            <flag name="left" value="0x13"/>
+            <flag name="right" value="0x14"/>
+            <flag name="baseline" value="0x15"/>
+            <flag name="center" value="0x16"/>
+        </attr>
+        <attr name="textOn" format="string"/>
+        <attr name="textOff" format="string"/>
+    </declare-styleable>
+</resources>
