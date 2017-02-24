@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ExFacebookOauth</string>
+
+    <string name="facebook_app_id">952710651456103</string>
+</resources>
